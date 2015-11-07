@@ -1,5 +1,3 @@
-//http://xiaoyaoworm.com/blog/2015/04/09/%E6%96%B0leetcode-sort-7-insert-interval/
-
 /**
  * Definition for an interval.
  * public class Interval {
@@ -11,18 +9,18 @@
  */
 public class Solution {
     public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
-        List<Interval> resultList = new ArrayList<Interval>();
-        for(Interval interval: intervals){
-            if(interval.end < newInterval.start){
-                resultList.add(interval);
-            } else if(interval.start > newInterval.end){
-                resultList.add(newInterval);
-                newInterval = interval;
-            } else if(interval.start <= newInterval.end || interval.end >= newInterval.start){
-                newInterval = new Interval(Math.min(interval.start,newInterval.start),Math.max(interval.end,newInterval.end));
+        List<Interval> result = new ArrayList<Interval>();
+        for(Interval current: intervals){
+            if(current.end < newInterval.start){
+                result.add(current);
+            } else if(newInterval.end < current.start){
+                result.add(newInterval);
+                newInterval = current;
+            } else{
+                newInterval = new Interval(Math.min(newInterval.start, current.start),Math.max(newInterval.end,current.end));
             }
         }
-        resultList.add(newInterval);
-        return resultList;
+        result.add(newInterval);
+        return result;
     }
 }
