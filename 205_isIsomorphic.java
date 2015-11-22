@@ -3,22 +3,23 @@ public class Solution {
         if(s == null && t == null) return true;
         if(s == null || t == null) return false;
         if(s.length()!=t.length()) return false;
-        
         HashMap<Character, Character> map1 = new HashMap<Character, Character>();
         HashMap<Character, Character> map2 = new HashMap<Character, Character>();
         
-        int length = s.length();
-        for(int i = 0; i < length; i++){
-            char m = s.charAt(i);
-            char n = t.charAt(i);
-            if(map1.containsKey(m)){
-                if(map1.get(m)!=n) return false;
+        int n = s.length();
+        for(int i = 0; i < n; i++){
+            char p = s.charAt(i);
+            char q = t.charAt(i);
+            if(map1.containsKey(p)){
+                if(map1.get(p)!=q) return false;
+            } else{
+                map1.put(p,q);
             }
-            if(map2.containsKey(n)){
-                if(map2.get(n)!=m) return false;
+            if(map2.containsKey(q)){
+                if(map2.get(q)!=p) return false;
+            } else{
+                map2.put(q,p);
             }
-            map1.put(m,n);
-            map2.put(n,m);
         }
         return true;
     }
