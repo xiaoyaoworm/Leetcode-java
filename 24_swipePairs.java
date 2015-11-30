@@ -19,14 +19,10 @@ public class Solution {
             pre.next = cur.next;
             cur.next = next;
             pre = cur;
-            cur = pre.next;
-            if(cur == null || cur.next == null){
-                pre.next = cur;
-            }
+            cur = next;
+            if(cur == null || cur.next == null) pre.next = cur;
         }
-        
         
         return fake.next;
     }
-    
 }

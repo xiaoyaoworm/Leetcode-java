@@ -1,0 +1,5 @@
+Summary
+
+Stack: pop, push, peek
+HashMap: get, set, containsKey, remove
+LinkedList: peek, add, remove(poll)

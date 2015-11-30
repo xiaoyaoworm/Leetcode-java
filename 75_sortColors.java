@@ -1,31 +1,27 @@
-//http://xiaoyaoworm.com/blog/2015/04/03/%E6%96%B0leetcode-sort-2-sort-colors/
-
 public class Solution {
-    public void sortColors(int[] A) {
-        int length = A.length;
-        int l = 0;
-        int r = length -1;
-         
+    public void sortColors(int[] nums) {
+        if(nums.length == 0) return;
+        int i = 0;
+        int j = nums.length-1;
         int k = 0;
-        int temp = 0;
-        while(k< r+1){
-            if(A[k] == 0){
-                temp = A[k];
-                A[k] = A[l];
-                A[l] = temp;
-                k++;
-                l++;
-            } else if(A[k] == 2){
-                temp = A[k];
-                A[k] = A[r];
-                A[r] = temp;
-                r--; 
-                // Then only thing we need to pay attention to is that there is 
-                // no need to add k this time, because k is not fixed there
-            }
-            else {
+        while(k<=j){
+            if(nums[k] == 0){
+                swap(nums,i,k);
+                i++;
+                k++; // must put k++ here, because left are all tested, k can move on.
+            } else if(nums[k] == 2){
+                swap(nums,k,j);
+                j--;
+            } else{
                 k++;
             }
         }
+    }
+    
+    
+    public void swap(int[] nums, int i, int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
 }
