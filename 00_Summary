@@ -3,3 +3,10 @@ Summary
 Stack: pop, push, peek
 HashMap: get, set, containsKey, remove
 LinkedList: peek, add, remove(poll)
+
+
+
+String --> substring(beginIndes, endIndex)
+
+beginIndex -- the begin index, inclusive.
+endIndex -- the end index, exclusive.

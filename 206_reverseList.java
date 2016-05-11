@@ -8,19 +8,17 @@
  */
 public class Solution {
     public ListNode reverseList(ListNode head) {
-        if(head == null) return null;
-        Stack<ListNode> stack = new Stack<ListNode>();
-        while(head!=null){
-            stack.push(head);
-            head = head.next;
+        if(head == null || head.next == null) return head;
+        ListNode p1 = head;
+        ListNode p2 = head.next;
+        head.next = null;
+        while(p1!=null && p2!=null){
+            ListNode t = p2.next;
+            p2.next = p1;
+            p1 = p2;
+            if(t!=null) p2 = t;
+            else break;
         }
-        ListNode fakeHead = new ListNode(0);
-        ListNode run = fakeHead;
-        while(!stack.isEmpty()){
-            run.next = stack.pop();
-            run = run.next;
-        }
-        run.next = null; // do not forget this!!! otherwise it will become a circle
-        return fakeHead.next;
+        return p2;
     }
 }
