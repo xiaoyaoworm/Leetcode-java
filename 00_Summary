@@ -10,3 +10,6 @@ String --> substring(beginIndes, endIndex)
 
 beginIndex -- the begin index, inclusive.
 endIndex -- the end index, exclusive.
+
+
+in DFS function, do not use index++, use index+1, should be very careful on this!!! index++ is running then add. if really want to use this, use prefix ++, ++index;
