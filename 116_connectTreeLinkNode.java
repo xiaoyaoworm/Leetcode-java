@@ -8,35 +8,16 @@
  */
 public class Solution {
     public void connect(TreeLinkNode root) {
-        if(root == null) return;
-        LinkedList<TreeLinkNode> queue = new LinkedList<TreeLinkNode>();
-        queue.add(root);
-        int current = 1;
-        int next = 0;
-        TreeLinkNode start = null;
-        
-        while(!queue.isEmpty()){
-            TreeLinkNode temp = queue.remove();
-            if(start == null) start = temp;
-            else {
-                start.next = temp;
-                start = start.next;
-            }
-            if(temp.left!=null) {
-                queue.add(temp.left);
-                next++;
-            }
-            if(temp.right!=null) {
-                queue.add(temp.right);
-                next++;
-            }
-            current--;
-            if(current == 0){
-                current = next;
-                next = 0;
-                start.next = null;
-                start = null;
-            }
+        if(root== null || root.left == null) return;
+        connectNode(root.left,root.right);
+    }
+    
+    public void connectNode(TreeLinkNode p1,TreeLinkNode p2){
+        p1.next = p2;
+        if(p1.left!=null){
+            connectNode(p1.left,p1.right);
+            connectNode(p1.right,p2.left);
+            connectNode(p2.left,p2.right);
         }
     }
 }
