@@ -9,28 +9,29 @@
 public class Solution {
     public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
         if(node == null) return null;
-        HashMap<UndirectedGraphNode,UndirectedGraphNode> map = new HashMap<UndirectedGraphNode,UndirectedGraphNode>();
-        LinkedList<UndirectedGraphNode> queue = new LinkedList<UndirectedGraphNode>();
-        
         UndirectedGraphNode newNode = new UndirectedGraphNode(node.label);
+        
+        HashMap<UndirectedGraphNode,UndirectedGraphNode> map = new HashMap<UndirectedGraphNode,UndirectedGraphNode>();
         map.put(node,newNode);
+        
+        Queue<UndirectedGraphNode> queue = new LinkedList<UndirectedGraphNode>();
         queue.add(node);
         
         while(!queue.isEmpty()){
-            UndirectedGraphNode cur = queue.remove();
-            List<UndirectedGraphNode> curNeighbors = cur.neighbors;
-            for(UndirectedGraphNode aNeighbor: curNeighbors){
-                if(map.containsKey(aNeighbor)){
-                    map.get(cur).neighbors.add(map.get(aNeighbor));
+            UndirectedGraphNode current = queue.remove();
+            List<UndirectedGraphNode> currentNeighbors = current.neighbors;
+            
+            for(UndirectedGraphNode currentNeighbor: currentNeighbors){
+                if(map.containsKey(currentNeighbor)){
+                    map.get(current).neighbors.add(map.get(currentNeighbor));
                 } else{
-                    UndirectedGraphNode copy = new UndirectedGraphNode(aNeighbor.label);
-                    map.put(aNeighbor,copy);
-                    queue.add(aNeighbor);
-                    map.get(cur).neighbors.add(copy);
+                    UndirectedGraphNode copy = new UndirectedGraphNode(currentNeighbor.label);
+                    map.put(currentNeighbor,copy);
+                    queue.add(currentNeighbor);
+                    map.get(current).neighbors.add(copy);
                 }
             }
         }
         return newNode;
-        
     }
 }
