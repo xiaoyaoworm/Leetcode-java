@@ -4,8 +4,10 @@ public class Solution {
     public int search(int[] nums, int target) {
         int start = 0;
         int end = nums.length-1;
-        while(start < end){
+        while(start <= end){
             int mid = start+(end-start)/2;
+            if(nums[mid] == target) return mid;
+            
             if(nums[mid] < nums[end]){
                 if(target > nums[mid] && target <= nums[end]){
                     start = mid+1;
@@ -20,8 +22,7 @@ public class Solution {
                 }
             }
         }
-        if(start == end && nums[start]!=target) return -1;
-        return start;
+        return -1;
     }
 }
 
