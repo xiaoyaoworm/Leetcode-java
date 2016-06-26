@@ -1,3 +1,45 @@
+更漂亮的更优解：
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    TreeNode first = null;
+    TreeNode second = null;
+    TreeNode prefix = new TreeNode(Integer.MIN_VALUE);
+    
+    public void recoverTree(TreeNode root) {
+        traverse(root);
+        int val = first.val;
+        first.val = second.val;
+        second.val = val;
+    }
+    
+    public void traverse(TreeNode root){
+        if(root == null) return;
+        traverse(root.left);
+        
+        if(first == null && prefix.val >= root.val){
+            first = prefix;
+        }
+        if(first!=null && prefix.val>=root.val){
+            second = root;
+        }
+        prefix = root;
+        
+        traverse(root.right);
+    }
+}
+
+
+
+
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
