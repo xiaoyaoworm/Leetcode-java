@@ -1,43 +1,42 @@
-//http://xiaoyaoworm.com/blog/2015/04/19/%E6%96%B0leetcode-hashtable-7-minimum-window-substring/
-
 public class Solution {
-    public String minWindow(String S, String T) {
+    public String minWindow(String s, String t) {
+        if(s == null || s.length() == 0 || t == null || t.length() == 0) return null;
         String result = "";
-        if(S == null || T == null || S.length() == 0 || T.length() == 0) return result;
-        HashMap<Character, Integer> dict = new HashMap<Character, Integer>();
-        for(char c: T.toCharArray()){
-            if(dict.containsKey(c)){
-                dict.put(c,dict.get(c)+1);
+        int minLen = s.length()+1;
+        HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+        for(char c: t.toCharArray()){
+            if(map.containsKey(c)){
+                map.put(c,map.get(c)+1);
             } else{
-                dict.put(c,1);
+                map.put(c, 1);
             }
         }
-         
+        
+        int start = 0;
         int count = 0;
-        int pre = 0;
-        int minLen = S.length()+1;
-        for(int i = 0; i < S.length(); i++){
-            char c = S.charAt(i);
-            if(dict.containsKey(c)){
-                dict.put(c,dict.get(c)-1);
-                if(dict.get(c)>=0){ // including equal scenario
+        
+        for(int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+            if(map.containsKey(c)){
+                map.put(c,map.get(c)-1);
+                if(map.get(c)>=0) {
                     count++;
                 }
-                 
-                while(count == T.length()){
-                    char p = S.charAt(pre);
-                    if(dict.containsKey(p)){
-                        dict.put(p,dict.get(p)+1);
-                        if(dict.get(p)>0){
-                            if(minLen > i+1-pre){
-                                minLen = i+1-pre;
-                                result = S.substring(pre, i+1);
-                            }
-                            count--;
+            }
+            
+            while(count == t.length()){
+                char pre = s.charAt(start);
+                if(map.containsKey(pre)){
+                    map.put(pre,map.get(pre)+1);
+                    if(map.get(pre)>0){
+                        if(minLen > i+1-start){
+                            minLen = i+1-start;
+                            result = s.substring(start, i+1);
                         }
+                        count--;
                     }
-                    pre++;
                 }
+                start++;
             }
         }
         return result;

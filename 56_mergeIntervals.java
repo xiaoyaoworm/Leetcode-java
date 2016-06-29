@@ -1,5 +1,3 @@
-//http://xiaoyaoworm.com/blog/2015/04/03/%E6%96%B0leetcode-sort-3-merge-intervals/
-
 /**
  * Definition for an interval.
  * public class Interval {
@@ -11,31 +9,27 @@
  */
 public class Solution {
     public List<Interval> merge(List<Interval> intervals) {
-        List<Interval> resultList = new ArrayList<Interval>();
-        if(intervals == null || intervals.size()==0) return resultList;
+        List<Interval> result = new ArrayList<Interval>();
+        if(intervals == null || intervals.size() == 0) return result; 
+        
         
         Comparator<Interval> comparator = new Comparator<Interval>(){
-            public int compare(Interval x, Interval y){
-                return x.start -y.start;
-            }            
+            public int compare(Interval p, Interval q){
+                return p.start - q.start;
+            }
         };
         Collections.sort(intervals, comparator);
         
         Interval base = intervals.get(0);
-        int k = 1;
-        while(k < intervals.size()){
-            Interval current = intervals.get(k);
-            if(current.start <= base.end){
-                if(current.end > base.end){
-                    base.end = current.end;
-                }
-            } else {
-                resultList.add(base);
-                base = intervals.get(k);
+        for(int i = 1; i < intervals.size(); i++){
+            Interval current = intervals.get(i);
+            if(base.end < current.start){
+                result.add(base);
+                base = current;
             }
-            k++;
+            base = new Interval(base.start, Math.max(base.end, current.end));
         }
-        resultList.add(base);
-        return resultList;
+        result.add(base);
+        return result;
     }
 }
