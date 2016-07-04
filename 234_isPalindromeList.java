@@ -11,32 +11,38 @@ public class Solution {
         if(head == null || head.next == null) return true;
         ListNode fast = head;
         ListNode slow = head;
+        // Be careful, it is checkint fast.next and fast.next.next!!!!!!
         while(fast.next!=null && fast.next.next!=null){
             slow = slow.next;
             fast = fast.next.next;
         }
         ListNode second = slow.next;
         slow.next = null;
+        ListNode first = head;
         
-        //reverse
-        ListNode p1 = second;
-        ListNode p2 = p1.next;
-        while(p1!=null && p2!=null){
-            ListNode temp = p2.next;
-            p2.next = p1;
-            p1 = p2;
-            p2 = temp;
-        }
-        second.next = null;
+        second = reverse(second);
         
-        if(p2 == null) second = p1;
-        else second = p2;
+        // use second because first may have one more node than second
         while(second!=null){
-            if(head.val!=second.val) return false;
-            head = head.next;
+            if(first.val!=second.val) return false;
+            first = first.next;
             second = second.next;
         }
         return true;
-        
+    }
+    
+    public ListNode reverse(ListNode head){
+        if(head == null || head.next == null) return head;
+        ListNode p = head;
+        ListNode q = head.next;
+        head.next = null;
+        while(p!=null && q!=null){
+            ListNode next = q.next;
+            q.next = p;
+            p = q;
+            if(next!=null) q = next;
+            else break;
+        }
+        return q;
     }
 }
