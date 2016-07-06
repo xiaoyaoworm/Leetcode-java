@@ -1,0 +1,15 @@
+design:
+to build messager
+behavior last one passionate
+
+jun23,24
+at home:
+what is main thread execute
+how intent service works
+user scrolling how?
+list of dominoin, left to 6 right to 6
+binary tree return DST or remove from array
+print all path
+
+sent resume.
+once start, 4~6 classroom, learn api, Android different team. end of 6weeks,
