@@ -91,6 +91,98 @@ public class Solution {
             }
         }
     }
-    
-    
 }
+    
+
+这道是求2D Matrix（0，1）里面的最大岛屿面积（1）
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+/**
+ * Created by leon on 7/6/16.
+ */
+public class Solutions {
+
+    public int getArea(int[][] grid){
+        if(grid == null || grid.length == 0) return 0;
+        int result = 0;
+        int m = grid.length;
+        int n = grid[0].length;
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(grid[i][j] == 1){
+                    int temp = bfs(grid, i, j);
+                    result = Math.max(temp,result);
+                }
+
+            }
+        }
+        return result;
+    }
+
+    public int bfs(int[][] grid, int i, int j){
+        int m = grid.length;
+        int n = grid[0].length;
+
+        int temp = 0;
+        Queue<Point> queue = new LinkedList<Point>();
+        if(grid[i][j] == 1){
+            queue.add(new Point(i,j));
+            temp++;
+            grid[i][j] = -1;
+        }
+
+        while(!queue.isEmpty()){
+            Point cur = queue.remove();
+            int x = cur.x;
+            int y = cur.y;
+
+            if(x>0 && grid[x-1][y]==1){
+                queue.add(new Point(x-1,y));
+                temp++;
+                grid[x-1][y] = -1;
+            }
+
+            if(x<m-1 && grid[x+1][y] == 1){
+                queue.add(new Point(x+1,y));
+                temp++;
+                grid[x+1][y] = -1;
+            }
+
+            if(y>0 && grid[x][y-1]== 1){
+                queue.add(new Point(x,y-1));
+                temp++;
+                grid[x][y-1] = -1;
+            }
+
+            if(y<n-1 && grid[x][y+1] == 1){
+                queue.add(new Point(x,y+1));
+                temp++;
+                grid[x][y+1] = -1;
+            }
+        }
+        return temp;
+    }
+
+
+    public class Point{
+        int x;
+        int y;
+        public Point(int x, int y){
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    public static void main(String[] args) {
+        int[][] area = new int[4][4];
+        area[0] = new int[]{0,1,1,0};
+        area[1] = new int[]{0,0,0,1};
+        area[2] = new int[]{0,1,1,0};
+        area[3] = new int[]{1,0,1,1};
+
+        System.out.println(new Solutions().getArea(area));
+    }
+}
+    
