@@ -1,28 +1,28 @@
 public class Solution {
     public boolean wordPattern(String pattern, String str) {
-        if(pattern == null && str == null) return true;
-        if(pattern == null || str == null) return false;
+        if(pattern == null) return str == null;
+        if(pattern.length() == 0) return str.length() == 0;
         
-        String[] strs = str.split(" ");
-        if(strs.length != pattern.length()) return false;
+        String[] strArr = str.split(" ");
+        if(strArr.length!=pattern.length()) return false;
+        char[] patternArr = pattern.toCharArray();
         
-        HashMap<Character, String> map1 = new HashMap<Character, String>();
-        HashMap<String, Character> map2 = new HashMap<String, Character>();
+        HashMap<Character, String> ps = new HashMap<Character, String>();
+        HashMap<String, Character> sp = new HashMap<String, Character>();
         
-        int length = strs.length;
-        for(int i = 0; i < length; i++){
-            char a = pattern.charAt(i);
-            String b = strs[i];
-            if(map1.containsKey(a)){
-                if(!map1.get(a).equals(b)) return false;
+        for(int i = 0; i < patternArr.length; i++){
+            char c = patternArr[i];
+            String s = strArr[i];
+            if(ps.containsKey(c)){
+                if(!ps.get(c).equals(s)) return false;
             } else{
-                map1.put(a,b);
+                ps.put(c,s);
             }
             
-            if(map2.containsKey(b)){
-                if(map2.get(b)!=a) return false;
+            if(sp.containsKey(s)){
+                if(sp.get(s)!=c) return false; 
             } else{
-                map2.put(b,a);
+                sp.put(s,c);
             }
         }
         return true;
