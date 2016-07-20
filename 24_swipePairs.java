@@ -1,5 +1,4 @@
-Recursive解法
-
+Recursive解法：O(N) space:
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -19,7 +18,8 @@ public class Solution {
     }
 }
 
-Iterative解法：
+
+Iterative解法：O(1) space
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -31,20 +31,22 @@ Iterative解法：
 public class Solution {
     public ListNode swapPairs(ListNode head) {
         if(head == null || head.next == null) return head;
-        ListNode fake = new ListNode(0);
-        ListNode pre = fake;
+        ListNode fakeHead = new ListNode(0);
+        fakeHead.next = head;
+        
+        ListNode pre = fakeHead;
         ListNode cur = head;
         
         while(cur!=null && cur.next!=null){
             ListNode next = cur.next.next;
-            cur.next.next = cur;
             pre.next = cur.next;
+            cur.next.next = cur;
             cur.next = next;
+            
             pre = cur;
             cur = next;
-            if(cur == null || cur.next == null) pre.next = cur;
+            if(cur==null || cur.next == null) pre.next = cur;
         }
-        
-        return fake.next;
+        return fakeHead.next;
     }
 }
