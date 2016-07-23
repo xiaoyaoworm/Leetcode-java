@@ -1,50 +1,34 @@
-//http://xiaoyaoworm.com/blog/2015/04/15/%E6%96%B0leetcode-hashtable-3-sudoku-solver/
-
 public class Solution {
     public void solveSudoku(char[][] board) {
-        if(board== null || board.length == 0) return;
-        helper(board);
+        solve(board);
     }
-     
-    public boolean helper(char[][] board){
-        for(int i = 0; i < board.length; i++){
-            for(int j = 0; j < board[0].length ; j++){
-                if(board[i][j]=='.'){
-                    for(char c = '1'; c<='9';c++){
-                        if(isValid(board,i,j,c)){
-                            board[i][j] = c;
-                            if(helper(board)){
-                                return true;
-                            } else{
-                                board[i][j] = '.'; //roll back!!!
-                            }
+    
+    public boolean solve(char[][] board){
+        for(int i = 0; i < 9; i++){
+            for(int j = 0; j < 9; j++){
+                if(board[i][j] == '.'){
+                    for(char k = '1'; k <= '9'; k++){
+                        if(isValid(board,i,j,k)){
+                            board[i][j] = k;
+                            if(solve(board)) return true;
+                            else board[i][j] = '.';
                         }
                     }
-                    return false;// if check this place cannot be filled by 1~9, return false
+                    return false;
                 }
             }
         }
         return true;
     }
-     
+    
     public boolean isValid(char[][] board, int i, int j, char c){
-        for(int m = 0; m < 9; m++){
-            if(board[m][j] == c){
-                return false;
-            }
+        for(int k = 0; k < 9; k++){
+            if(board[i][k] == c || board[k][j] == c) return false;
         }
-         
-        for(int n = 0; n < 9; n++){
-            if(board[i][n] == c){
-                return false;
-            }
-        }
-         
-        for(int row = i/3*3; row < i/3*3+3; row++){
-            for(int col = j/3*3; col < j/3*3+3; col++){
-                if(board[row][col] == c){
-                    return false;
-                }
+        
+        for(int x= i/3*3; x< i/3*3+3; x++){
+            for(int y = j/3*3; y < j/3*3+3; y++){
+                if(board[x][y] == c) return false;
             }
         }
         return true;
