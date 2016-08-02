@@ -1,24 +1,19 @@
+//Follow previous non-zero sequence.
+
 public class Solution {
     public void moveZeroes(int[] nums) {
-        if(nums == null || nums.length == 0) return;
-        for(int i = 0; i < nums.length-1; i++){
-            int j = i+1;
-            if(nums[i] == 0){
-                while(j < nums.length){
-                    if(nums[j] == 0){
-                        j++;
-                    } else{
-                        swap(nums,i,j);
-                        break;
-                    }
-                }
-            } else continue;
+        int fixed = 0;
+        int i = 0;
+        while(i< nums.length){
+            if(nums[i]!= 0) {
+                nums[fixed] = nums[i];
+                fixed++;
+            }
+            i++;
         }
-    }
-    
-    public void swap(int[] nums, int i, int j){
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
+        while(fixed< nums.length){
+            nums[fixed] = 0;
+            fixed++;
+        }
     }
 }
