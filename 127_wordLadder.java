@@ -1,41 +1,52 @@
+"The idea behind bidirectional search is to run two simultaneous searches—one forward from
+the initial state and the other backward from the goal—hoping that the two searches meet in
+the middle. The motivation is that b^(d/2) + b^(d/2) is much less than b^d. b is branch factor, d is depth. "
+
+----- section 3.4.6 in Artificial Intelligence - A modern approach by Stuart Russel and Peter Norvig
+
+
 public class Solution {
     public int ladderLength(String beginWord, String endWord, Set<String> wordList) {
-        wordList.add(endWord); // wordList may not have endWord! we need to add it because we pop to see whether it is there.
-        Queue<Node> queue = new LinkedList<Node>();
-        queue.add(new Node(beginWord, 1)); // the beginWord is counted as 1
+        HashSet<String> startSet = new HashSet<String>();
+        HashSet<String> endSet = new HashSet<String>();
+        startSet.add(beginWord);
+        endSet.add(endWord);
         
-        while(!queue.isEmpty()){
-            Node tempNode = queue.remove();
-            String tempString = tempNode.word;
-            int tempPath = tempNode.path;
+        int minLen = 1;
+        HashSet<String> visited = new HashSet<String>();
+        
+        while(!startSet.isEmpty() && !endSet.isEmpty()){
+            if(startSet.size() > endSet.size()){
+                HashSet<String> set = startSet;
+                startSet = endSet;
+                endSet = set;
+            }
             
-            if(tempString.equals(endWord)) return tempPath;
-            
-            
-            for(int i = 0; i < tempString.length(); i++){
-                char[] tempChars = tempString.toCharArray();
-                char temp = tempChars[i];
-                for(char c = 'a'; c<='z';c++){
-                    if(temp == c) continue;
-                    tempChars[i] = c;
-                    String newString = new String(tempChars);
-                    if(wordList.contains(newString)){
-                        queue.add(new Node(newString, tempPath+1)); // tempPath+1
-                        wordList.remove(newString); // do not forget to remove it from wordList, otherwise it will overwrite.
+            HashSet<String> temp = new HashSet<String>();
+            for(String cur: startSet){
+                char[] arr = cur.toCharArray();
+                for(int i = 0; i < arr.length; i++){
+                    char old = arr[i];
+                    for(char c= 'a'; c <= 'z'; c++){
+                        if(c == old) continue;
+                        arr[i] = c;
+                        String newStr = new String(arr);
+                        
+                        if(endSet.contains(newStr)){
+                            return minLen+1;
+                        }
+                        
+                        if(!visited.contains(newStr) && wordList.contains(newStr)){
+                            visited.add(newStr);
+                            temp.add(newStr);
+                        }
+                        arr[i] = old;
                     }
-                    tempChars[i] = temp; //dont forget to put it back!!!!
                 }
             }
+            startSet = temp;
+            minLen++;
         }
         return 0;
-    }
-    
-    public class Node{
-        String word;
-        int path;
-        public Node(String word, int path){
-            this.word = word;
-            this.path = path;
-        }
     }
 }
