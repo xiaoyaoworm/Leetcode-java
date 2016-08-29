@@ -1,3 +1,5 @@
+思路：https://discuss.leetcode.com/topic/49691/java-o-k-n-time-complexity-solution
+
 public class Solution {
     public int[] getModifiedArray(int length, int[][] updates) {
         int[] res = new int[length];
