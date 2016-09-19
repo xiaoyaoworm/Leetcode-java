@@ -45,7 +45,6 @@ public class Solution {
             
             pre = cur;
             cur = next;
-            if(cur==null || cur.next == null) pre.next = cur;
         }
         return fakeHead.next;
     }
