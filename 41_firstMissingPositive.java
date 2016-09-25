@@ -31,6 +31,10 @@ public class Solution {
 
 then use for loop to find 0~n, return which not equals to i+1, otherwise, same as above return length+1;
 
+时间复杂度分析：
+We visit each number once, and each number will be put in its right place at most once, so it is O(n) + O(n). 
+Although there are two nesting of cyclic (for and while), but its time complexity is still O(n).
+
 [code]
 public class Solution {
     public int firstMissingPositive(int[] nums) {
