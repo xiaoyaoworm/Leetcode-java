@@ -1,26 +1,26 @@
+//O(n) space!!
+//O(n^2) time!!!
+
 public class Solution {
     public int minCut(String s) {
         if(s == null || s.length() <= 1) return 0;
         int len = s.length();
-        char[] arr = s.toCharArray();
-        int[] dp = new int[len];
-        boolean[][] pal = new boolean[len][len];
-        
-        for(int j = 0; j<len; j++){
-            int min = j;
-            for(int i = 0; i <= j; i++){
-                if(arr[i] == arr[j] && ((i+1 > j-1) || pal[i+1][j-1])){
-                    pal[i][j] = true;
-                    if(i == 0) min = 0;
-                    else min = Math.min(dp[i]+1, min);
-                }
-            }
-            dp[j] = min;
+        int[] dp = new int[len+1];
+        for(int i = 0; i <= len; i++){
+            dp[i] = i-1; // initial to current char numbers -1 as the most cut
         }
-        return dp[len-1];
+        
+        for(int i = 0; i < len; i++){
+            for(int j = 0; i-j>=0 && i+j<len && s.charAt(i-j) == s.charAt(i+j); j++){ //Even check
+                dp[i+j+1] = Math.min(dp[i+j+1], 1+dp[i-j]);
+            }
+            for(int j = 1; i-j+1>=0 && i+j<len && s.charAt(i-j+1) == s.charAt(i+j); j++){ //Odd check
+                dp[i+j+1] = Math.min(dp[i+j+1], 1+dp[i-j+1]);
+            }
+        }
+        return dp[len];
     }
 }
-
 
 
 //代码本身没啥问题，但是碰到了TLE。。。。
