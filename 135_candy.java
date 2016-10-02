@@ -1,7 +1,7 @@
 //time：O(n)
 //initial全为1
 //从左到右扫一遍，更新所有candy值，
-//从右往左扫一遍，更新所有candy值。
+//从右往左扫一遍，更新所有candy值。n
 
 public class Solution {
     public int candy(int[] ratings) {
