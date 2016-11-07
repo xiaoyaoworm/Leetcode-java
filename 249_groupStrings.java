@@ -1,3 +1,46 @@
+//Convert based on first character
+public class Solution {
+    public List<List<String>> groupStrings(String[] strings) {
+        List<List<String>> result = new ArrayList<List<String>>();
+        if(strings == null || strings.length == 0) return result;
+        HashMap<String, List<String>> map = new HashMap<String, List<String>>();
+        
+        for(int i = 0; i < strings.length; i++){
+            String bitStr = getBit(strings[i]);
+            if(map.containsKey(bitStr)){
+                map.get(bitStr).add(strings[i]);
+            } else{
+                List<String> temp = new ArrayList<String>();
+                temp.add(strings[i]);
+                map.put(bitStr, temp);
+            }
+        }
+        for(String str: map.keySet()){
+            List<String> list = map.get(str);
+            Collections.sort(list);//dont forget to sort!!
+            result.add(list);
+        }
+        return result;
+    }
+    
+    public String getBit(String str){
+        if(str == null || str.length() == 0) return str;
+        char c = str.charAt(0);
+        StringBuffer sb = new StringBuffer();
+        for(int i = 0; i < str.length(); i++){
+            int bit = str.charAt(i)-c;
+            if(bit < 0) bit+=26;
+            if(sb.length()!=0) sb.append(",");//dont forget this!!! 
+            //because abc can be same as am, becasue b-a = 1, c-a = 2, m-a = 12. SAME!!!
+            sb.append(bit);
+        }
+        return sb.toString();
+    }
+}
+
+
+
+//Convert GAP!!!
 public class Solution {
     public List<List<String>> groupStrings(String[] strings) {
         List<List<String>> result = new ArrayList<List<String>>();
