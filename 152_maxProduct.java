@@ -13,3 +13,22 @@ public class Solution {
         return result;
     }
 }
+
+//Follow up: no need dp array to save, just need save preMin, preMax, to calculate min, max, then make it as previous
+public class Solution {
+    public int maxProduct(int[] nums) {
+        int res = nums[0];
+        int preMin = nums[0];
+        int preMax = nums[0];
+        int min = 0;
+        int max = 0;
+        for(int i = 1; i < nums.length; i++){
+            min = Math.min(Math.min(nums[i], nums[i]*preMin),nums[i]*preMax);
+            max = Math.max(Math.max(nums[i], nums[i]*preMin),nums[i]*preMax);
+            res = Math.max(res, max);
+            preMin = min;
+            preMax = max;
+        }
+        return res;
+    }
+}
