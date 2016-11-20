@@ -10,7 +10,7 @@ public class Solution {
         //All dp[i][0] = 0 due to if you do i transaction but you don't see any stock there, profit is 0
         int res = 0;
         for(int i = 1; i <= k; i++){
-            int tmpMax = dp[i-1][0]-prices[0];
+            int tmpMax = dp[i-1][0]-prices[0];//tmpMax is the max value after last buy operation.
             for(int j = 1; j < prices.length; j++){
                 dp[i][j] = Math.max(dp[i][j-1], prices[j]+tmpMax);
                 tmpMax = Math.max(tmpMax, dp[i-1][j]-prices[j]);
