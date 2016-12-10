@@ -8,17 +8,17 @@
  * }
  */
 public class Solution {
-    int maxSum = Integer.MIN_VALUE;//not 0!!
+    public int max = Integer.MIN_VALUE;// not 0!!!!
     public int maxPathSum(TreeNode root) {
-        oneSideMax(root);
-        return maxSum;
+        oneSide(root);
+        return max;
     }
     
-    public int oneSideMax(TreeNode root){
+    public int oneSide(TreeNode root){
         if(root == null) return 0;
-        int l = oneSideMax(root.left);
-        int r = oneSideMax(root.right);
-        maxSum = Math.max(maxSum,root.val+Math.max(l,0)+Math.max(r,0));//Dont forget 0!!!!
-        return root.val+Math.max(0,Math.max(l,r)); //Dont forget 0!!!!
+        int left = Math.max(0, oneSide(root.left));
+        int right = Math.max(0, oneSide(root.right));
+        max = Math.max(max, root.val + left + right);
+        return root.val + Math.max(left, right);
     }
 }

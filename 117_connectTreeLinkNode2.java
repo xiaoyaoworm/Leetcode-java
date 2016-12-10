@@ -1,4 +1,4 @@
-This dummy head is awesome!!!!
+//This dummy head is awesome!!!!
 
 
 /**
@@ -22,7 +22,7 @@ public class Solution {
                 pre.next = root.right;
                 pre = pre.next;
             }
-            root = root.next;
+            root = root.next; //dont forget!!!
             if(root == null){
                 root = dummy.next;
                 pre = dummy;

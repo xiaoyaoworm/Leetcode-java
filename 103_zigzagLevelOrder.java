@@ -68,25 +68,21 @@ public class Solution {
 public class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> res = new ArrayList<List<Integer>>();
-        dfs(root, res, 0);
+        dfs(root, 0, res);
         return res;
     }
     
-    public void dfs(TreeNode node, List<List<Integer>> res, int level){
-        if(node == null) return;
-        if(level >= res.size()){
-            if(level %2 != 0){
-                res.add(new LinkedList<Integer>());
-            } else{
-                res.add(new ArrayList<Integer>());
-            }
+    public void dfs(TreeNode root, int level, List<List<Integer>> res){
+        if(root == null) return;
+        if(level >= res.size()){ // here is >=!!!!!!
+            res.add(new LinkedList<Integer>());
         }
-        if(level%2 !=0){
-            res.get(level).add(0, node.val);
-        } else{
-            res.get(level).add(node.val);
+        if(level % 2 == 0){
+            res.get(level).add(root.val);
+        } else {
+            res.get(level).add(0, root.val);
         }
-        dfs(node.left, res, level+1);
-        dfs(node.right, res, level+1);
+        dfs(root.left, level+1, res);
+        dfs(root.right, level+1, res);
     }
 }
