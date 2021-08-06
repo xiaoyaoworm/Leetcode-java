@@ -1,6 +1,5 @@
 //Best solution: Calculate weight then check the Math.abs(l-r), if -1 set as -1 forever.
 
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -10,23 +9,20 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-public class Solution {
+class Solution {
     public boolean isBalanced(TreeNode root) {
-        if(root == null) return true;
-        if (getDepth(root)==-1) return false;
-        return true;
+        return depth(root) != -1;
     }
     
-    public int getDepth(TreeNode root){
+    public int depth(TreeNode root){
         if(root == null) return 0;
-        int l = getDepth(root.left);
-        int r = getDepth(root.right);
-        if(l == -1 || r == -1) return -1;
-        if(Math.abs(l-r)>1) return -1;
-        return Math.max(l,r)+1;
+        int left = depth(root.left);
+        int right = depth(root.right);
+        
+        if (left == -1 || right == -1 || Math.abs(left-right) >1) return -1;
+        return Math.max(left, right)+1;
     }
 }
-
 
 //Use BFS to check balanced:
 
