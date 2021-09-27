@@ -8,31 +8,31 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-public class Solution {
+class Solution {
+    TreeNode prev = null;
     TreeNode first = null;
     TreeNode second = null;
-    TreeNode prefix = new TreeNode(Integer.MIN_VALUE);
-    
     public void recoverTree(TreeNode root) {
-        traverse(root);
+        dfs(root);
         int val = first.val;
         first.val = second.val;
         second.val = val;
     }
     
-    public void traverse(TreeNode root){
-        if(root == null) return;
-        traverse(root.left);
-        
-        if(first == null && prefix.val >= root.val){
-            first = prefix;
+    public void dfs(TreeNode root){
+        if(root.left != null){
+            dfs(root.left);
         }
-        if(first!=null && prefix.val>=root.val){
+        if(prev != null && first == null && prev.val >= root.val){
+            first = prev;
+        }
+        if(first != null && prev.val >= root.val){
             second = root;
         }
-        prefix = root;
-        
-        traverse(root.right);
+        prev = root;
+        if(root.right != null){
+            dfs(root.right);
+        }
     }
 }
 
