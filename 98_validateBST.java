@@ -9,7 +9,8 @@
  */
 public class Solution {
     public boolean isValidBST(TreeNode root) {
-        return validHelper(root, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+        // Use double can make this handle bigger case, such as Integer.MAX_VALUE
+        return validHelper(root, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY); 
     }
     
     public boolean validHelper(TreeNode root, double min, double max){
