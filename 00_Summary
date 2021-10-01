@@ -16,3 +16,23 @@ endIndex -- the end index, exclusive.
 
 
 in DFS function, do not use index++, use index+1, should be very careful on this!!! index++ is running then add. if really want to use this, use prefix ++, ++index;
+
+PQ+Comparator:
+PriorityQueue<String> pq = new PriorityQueue<String>(new Comparator<String>{
+	public int compare(String s, String t){
+		return s.compareTo(t);
+	}
+});
+
+Comparator:
+Regular:
+Comparator<Developer> byName = new Comparator<Developer>() {
+		@Override
+		public int compare(Developer o1, Developer o2) {
+			return o1.getName().compareTo(o2.getName());
+		}
+	};
+
+Lamda:
+Comparator<Developer> byName = 
+		(Developer o1, Developer o2)->o1.getName().compareTo(o2.getName());
