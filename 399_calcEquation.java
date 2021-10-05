@@ -1,3 +1,46 @@
+class Solution {
+    public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
+        Map<String, Map<String, Double>> graph = new HashMap<>();
+        for(int i = 0; i < equations.size(); i++){
+            List<String> equation = equations.get(i);
+            String start = equation.get(0);
+            String end = equation.get(1);
+            graph.putIfAbsent(start, new HashMap<>());
+            graph.get(start).put(end, values[i]);
+            graph.get(start).put(start, 1.00);
+            graph.putIfAbsent(end, new HashMap<>());
+            graph.get(end).put(start, 1/values[i]);
+            graph.get(end).put(end, 1.00);
+        }
+        
+        double[] res = new double[queries.size()];
+        for(int i = 0; i < queries.size(); i++){
+            res[i] = dfs(queries.get(i).get(0), queries.get(i).get(1), new HashSet<>(), graph);
+        }
+        return res;
+    }
+    
+    
+    public double dfs(String start, String end, Set<String> visited, Map<String, Map<String,Double>> graph){
+        if(!graph.containsKey(start)) return -1.0;
+        if(graph.get(start).containsKey(end)) return graph.get(start).get(end);
+        
+        visited.add(start);
+        for(Map.Entry<String, Double>neighbor: graph.get(start).entrySet()){
+            if(!visited.contains(neighbor.getKey())){
+                double product = dfs(neighbor.getKey(), end, visited, graph);
+                if(product!=-1){
+                    return neighbor.getValue()*product;
+                }
+            }
+        }
+        return -1.0;
+    }
+}
+
+
+
+
 public class Solution {
     public double[] calcEquation(String[][] equations, double[] values, String[][] queries) {
     	HashMap<String, ArrayList<String>> pairMap = new HashMap<String, ArrayList<String>>();

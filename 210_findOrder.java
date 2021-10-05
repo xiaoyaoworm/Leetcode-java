@@ -45,3 +45,49 @@ public class Solution {
         return res;
     }
 }
+
+
+
+
+//Using array instead of hashmap
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        int[] degree = new int[numCourses];
+        int[][] matrix = new int[numCourses][numCourses];
+        
+        for(int i = 0; i < prerequisites.length; i++){
+            int pre = prerequisites[i][1];
+            int next = prerequisites[i][0];
+            if(matrix[pre][next] == 0){
+                degree[next]++;
+            }
+            matrix[pre][next] = 1;
+        }
+        
+        Queue<Integer> queue = new LinkedList<Integer>();
+        List<Integer> res = new ArrayList<Integer>();
+        for(int i=0; i < numCourses; i++){
+            if(degree[i] == 0){
+                queue.add(i);
+            }
+        }
+        
+        while(!queue.isEmpty()){
+            int cur = queue.remove();
+            res.add(cur);
+            for(int i = 0; i < numCourses; i++){
+                if(matrix[cur][i] != 0){
+                    if(--degree[i] == 0){
+                        queue.add(i);
+                    }
+                }
+            }
+        }
+        if (res.size() != numCourses) return new int[0];
+        int[] resInt = new int[numCourses];
+        for(int i = 0; i < numCourses; i++){
+            resInt[i] = res.get(i);
+        }
+        return resInt;
+    }
+}
