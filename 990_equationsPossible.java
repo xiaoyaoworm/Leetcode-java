@@ -1,4 +1,4 @@
-//Union Find经典题目！
+//Union Find经典题目
 
 class Solution {
     public boolean equationsPossible(String[] equations) {

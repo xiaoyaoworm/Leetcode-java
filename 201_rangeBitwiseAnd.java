@@ -18,3 +18,8 @@ public class Solution {
         return m<<step;
     }
 }
+
+
+//https://leetcode.com/problems/bitwise-and-of-numbers-range/solution/
+//This question is asking what is the common prefix for all those numbers in the range -> common prefix for two boundries.
+//Use shift right to find common prefix, shen shift it back.
