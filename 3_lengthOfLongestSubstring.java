@@ -22,3 +22,22 @@ public class Solution {
         return Math.max(result, s.length()-start);
     }
 }
+
+
+//Using queue:
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        if (s == null) return -1;
+        int res = 0;
+        Queue<Character> queue = new LinkedList<Character>();
+        for(int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+            while(queue.contains(c)){
+                queue.remove();
+            }
+            queue.add(c);
+            res = Math.max(res, queue.size());
+        }
+        return res;
+    }
+}
