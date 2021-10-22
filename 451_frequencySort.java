@@ -29,3 +29,28 @@ public class Solution {
         return sb.toString();
     }
 }
+
+
+
+
+class Solution {
+    public String frequencySort(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        for(char c: s.toCharArray()){
+            map.put(c, map.getOrDefault(c,0)+1);
+        }
+        
+        List<Character> characters = new ArrayList<Character>(map.keySet());
+        Collections.sort(characters, (a,b)->map.get(b)-map.get(a));
+        
+        StringBuffer sb = new StringBuffer();
+        for(char c: characters){
+            int n = map.get(c);
+            while(n>0){
+                n--;
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+}
