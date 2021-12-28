@@ -6,11 +6,10 @@ public class Solution {
         if(s == null || s.length() < num*len) return res;
         HashMap<String, Integer> map = new HashMap<String, Integer>();
         for(String word: words){
-            if(map.containsKey(word)) map.put(word, map.get(word)+1);
-            else map.put(word, 1);
+            map.put(word, map.getOrDefault(word, 0)+1);
         }
         
-        for(int i = 0; i <= s.length() - num*len; i++){ //Attemtion: this is <= not <
+        for(int i = 0; i <= s.length() - num*len; i++){ //Attntion: this is <= not <
             HashMap<String, Integer> copy = new HashMap<>(map);//Need a copy!!!!
             for(int k = 0; k < num; k++){
                 String str = s.substring(i+k*len, i+k*len+len);

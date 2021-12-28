@@ -1,8 +1,8 @@
 public class Solution {
     public int maxSubArray(int[] nums) {
-        int sum[] = new int[nums.length];
+        int sum[] = new int[nums.length]; //Same size is fine!
         sum[0] = nums[0];
-        int result = nums[0];
+        int result = nums[0]; // Attention here, result should not be 0 but nums[0] which can be negative
         for(int i = 1; i < nums.length; i++){
             sum[i] = Math.max(sum[i-1]+nums[i], nums[i]);
             result = Math.max(result,sum[i]);
