@@ -18,7 +18,7 @@ public class Solution {
         if(i<0 || j< 0||i>=m|| j>=n) return false;
         if(board[i][j]==word.charAt(k)){
             char temp = board[i][j];
-            board[i][j] = '#';
+            board[i][j] = '#'; //Back tracking is needed because same letter cell cannot be used more than once
             if(k == word.length()-1) return true;
             else if(dfs(board,word,i+1,j,k+1)||dfs(board,word,i-1,j,k+1)||dfs(board,word,i,j-1,k+1)||dfs(board,word,i,j+1,k+1)){
                 return true;
