@@ -11,7 +11,7 @@ public class Solution {
             nums.add(i);
         }
         
-        k--;
+        k--; // change 1-index to 0-index
         StringBuffer sb = new StringBuffer();
         for(int i = 1; i <= n; i++){
             int index = k/factor[n-i];
