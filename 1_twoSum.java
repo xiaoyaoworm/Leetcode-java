@@ -1,5 +1,3 @@
-//http://xiaoyaoworm.com/blog/2015/04/14/%E6%96%B0leetcode-hashtable-2-two-sum/
-
 public class Solution {
     public int[] twoSum(int[] numbers, int target) {
         int[] result = new int[2];

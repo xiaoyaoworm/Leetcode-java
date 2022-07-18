@@ -1,24 +1,26 @@
-public class Solution {
+class Solution {
     public int trap(int[] height) {
-        if(height == null || height.length < 3) return 0;
-        int l = 0;
-        int r = height.length-1;
         int res = 0;
+        int start = 0;
+        int end = height.length-1;
         
-        while(l<r && height[l] < height[l+1]) l++;
-        while(l<r && height[r] < height[r-1]) r--;
+        while(start < end && height[start+1] >= height[start]){
+            start++;
+        }
+        while(start < end && height[end-1] >= height[end]){
+            end--;
+        }
         
-        while(l<r){
-            int left = height[l];
-            int right = height[r];
-            
+        while(start < end){
+            int left = height[start];
+            int right = height[end];
             if(left <= right){
-                while(l<r && height[++l]< left){
-                    res += left-height[l];
+                while(start < end && height[++start] < left){
+                    res += left- height[start];
                 }
             } else{
-                while(l<r && height[--r]< right){
-                    res+= right-height[r];
+                while(start < end && height[--end] < right){
+                    res += right- height[end];
                 }
             }
         }
